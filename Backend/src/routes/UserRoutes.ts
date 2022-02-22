@@ -1,14 +1,16 @@
+import { UserModel } from "@models/Users";
 import { cute } from "@utils";
 import { Router } from "express";
 
 const router = Router();
 
-router.get(
-  "/",
+router.post(
+  "/register",
   cute(async (req, res) => {
-    res.json({
-      message: "Hello World",
-    });
+    console.log(req.body);
+    
+    const NewUser = await UserModel.create({ ...req.body });
+    res.json(NewUser);
   })
 );
 
