@@ -20,7 +20,9 @@
       "@/interfaces": ["interfaces/*", "interfaces"],
       "@/styles": ["styles/*", "styles"],
       "@/pages": ["pages/*", "pages"],
-      "@/hooks": ["hooks/*", "hooks"]
+      "@/hooks": ["hooks/*", "hooks"],
+      "@/slices": ["slices/*", "slices"],
+      "@/store": ["store/*", "store"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
