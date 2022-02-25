@@ -19,8 +19,6 @@ export const initServer = (app: Express) => {
   app.use(morgan("dev"));
   app.use(limiter);
 
- 
-
   const { port, url } = process.env;
   app.listen(port || 5000, async () => {
     console.log(`🚀 Server ready at: ${port}`);

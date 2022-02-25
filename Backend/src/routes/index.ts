@@ -1,1 +1,4 @@
-export { UserRoutes } from "./UserRoutes";
+export { UserRoutes } from "./User.Routes";
+export { RegionAdmin } from "./RegionAdmin.routes";
+export { AuthRoute } from "./Auth.routes";
+export { CenterRoutes } from "./Center.routes";
