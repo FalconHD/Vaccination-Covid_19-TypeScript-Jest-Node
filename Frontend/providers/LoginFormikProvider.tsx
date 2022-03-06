@@ -2,7 +2,9 @@ import React, { useEffect } from "react";
 import { ReactNode } from "react";
 import * as Yup from "yup";
 import { FormikProvider, useFormik } from "formik";
-import { post } from "@/hooks";
+import { post, useAppDispatch, useAppSelector } from "@/hooks";
+import { setAdmin } from "@/slices";
+import { useRouter } from "next/router";
 
 export type LoginFormikValues = {
   email: string;
@@ -16,6 +18,9 @@ const validationSchema = () =>
   });
 
 export const LoginFormikProvider = ({ children }: { children: ReactNode }) => {
+  const dispatch = useAppDispatch();
+  const admin = useAppSelector((state) => state.admin);
+  const router = useRouter();
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -23,7 +28,12 @@ export const LoginFormikProvider = ({ children }: { children: ReactNode }) => {
     },
     validationSchema,
     onSubmit: async (values) => {
-      await post("/auth/login", values);
+      const res = await post("/auth/login", values);
+      if (res) {
+        dispatch(setAdmin(res));
+        console.log(res);
+        router.push("/dashboard");
+      }
     },
     validateOnChange: true,
     validateOnBlur: false,

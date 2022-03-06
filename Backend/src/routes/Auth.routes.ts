@@ -1,3 +1,4 @@
+import { checkPassword } from "@lib";
 import { regionAdmin } from "@models/index";
 import { cute } from "@utils";
 import { Router } from "express";
@@ -9,7 +10,7 @@ router.post(
   cute(async (req, res) => {
     const admin = await regionAdmin.findOne({ email: req.body.email });
     if (admin) {
-      if (admin.password === req.body.password) {
+      if (await checkPassword(req.body.password, admin.password)) {
         res.json(admin);
       } else {
         res.status(401).json({

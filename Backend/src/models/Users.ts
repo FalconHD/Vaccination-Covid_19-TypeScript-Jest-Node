@@ -1,8 +1,6 @@
 import { IUser } from "@interfaces";
 import { Schema, model } from "mongoose";
 
-
-
 const schema = new Schema<IUser>(
   {
     name: {
@@ -30,8 +28,16 @@ const schema = new Schema<IUser>(
     },
     vaccinations: [
       {
-        shot: { type: Number, required: true, enum: [1, 2, 3] },
-        datetime: { type: Date, required: true, default: Date.now },
+        shot: {
+          type: Number,
+          required: true,
+          enum: [1, 2, 3],
+        },
+        datetime: {
+          type: Date,
+          required: true,
+          default: Date.now,
+        },
       },
     ],
     center: { type: Schema.Types.ObjectId, ref: "Center" },

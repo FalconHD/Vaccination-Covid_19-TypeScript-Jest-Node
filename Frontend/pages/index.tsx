@@ -1,4 +1,4 @@
-import { Card } from "@/components";
+import { Card, Choises } from "@/components";
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
@@ -13,29 +13,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <section>
-        <div className="flex flex-col w-full lg:flex-row h-full lg:h-screen">
-          <div className="grid flex-grow  card  rounded-box place-items-center">
-            <Card
-              direction={`/vaccin/${1}`}
-              title="First Vaccination"
-              image="https://www.zeilikmanlaw.com/wp-content/uploads/2021/06/Vaccine-1024x1024.jpg"
-            />
-          </div>
-          <div className="grid flex-grow  card  rounded-box place-items-center">
-            <Card
-              direction={`/vaccin/${2}`}
-              title="Second Vaccination"
-              image="https://www.zeilikmanlaw.com/wp-content/uploads/2021/06/Vaccine-1024x1024.jpg"
-            />
-          </div>
-          <div className="grid flex-grow  card  rounded-box place-items-center">
-            <Card
-              direction={`/vaccin/${3}`}
-              title="Third Vaccination"
-              image="https://www.zeilikmanlaw.com/wp-content/uploads/2021/06/Vaccine-1024x1024.jpg"
-            />
-          </div>
-        </div>
+        
       </section>
     </div>
   );

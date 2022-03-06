@@ -26,6 +26,7 @@ export const RegisterFormikProvider = ({
 }: {
   children: ReactNode;
 }) => {
+  
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -37,6 +38,7 @@ export const RegisterFormikProvider = ({
     validationSchema,
     onSubmit: async (values) => {
       const admin = await post("/auth/register", values);
+
     },
     validateOnChange: true,
     validateOnBlur: false,

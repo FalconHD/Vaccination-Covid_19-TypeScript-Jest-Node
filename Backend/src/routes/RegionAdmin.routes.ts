@@ -1,4 +1,4 @@
-import { generateToken } from "@lib/jwt";
+import { generateToken } from "@lib";
 import { regionAdmin } from "@models/index";
 import { cute } from "@utils";
 import axios from "axios";

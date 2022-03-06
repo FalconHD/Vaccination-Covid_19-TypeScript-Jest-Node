@@ -11,7 +11,7 @@
     "incremental": true,
     "baseUrl": "src",
     "paths": {
-      "@lib/*": ["lib/*"],
+      "@lib": ["lib/index"],
       "@utils": ["utils/index"],
       "@types/*": ["types/*"],
       "@routes": ["routes/index"],
