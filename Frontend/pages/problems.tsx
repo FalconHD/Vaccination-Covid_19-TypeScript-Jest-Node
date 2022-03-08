@@ -1,11 +1,21 @@
 import { Card } from "@/components";
+import { useAppDispatch, useAppSelector } from "@/hooks";
+import { setIsSickStore, setSickType } from "@/slices";
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
-import styles from "../styles/Home.module.css";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 const Prob: NextPage = () => {
+  const dispatch = useAppDispatch();
+  const user = useAppSelector((state) => state.user);
+  const router = useRouter();
+  useEffect(() => {
+    dispatch(setIsSickStore(true));
+  }, []);
+
   return (
     <div className="flex flex-col gap-5 mt-10 px-20 w-full border-opacity-50">
       <Head>
@@ -24,27 +34,33 @@ const Prob: NextPage = () => {
             <div className="card w-full bg-base-100 shadow-xl">
               <div className="card-body flex items-center justify-between flex-row-reverse ">
                 <div className="justify-end card-actions">
-                  <Link href="/form">
-                    <button className="btn btn-square btn-sm">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        className="feather feather-check-circle h-6 w-6"
-                      >
-                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                      </svg>
-                    </button>
-                  </Link>
+                  <button
+                    onClick={() => {
+                      dispatch(setSickType(`${index + 1}`));
+                      router.push(
+                        user.VaccinationProcess.shot == "1" ? "/form" : "/done"
+                      );
+                    }}
+                    className="btn btn-square btn-sm"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      className="feather feather-check-circle h-6 w-6"
+                    >
+                      <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                      <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                    </svg>
+                  </button>
                 </div>
-                <p>Problem {index}</p>
+                <p>Problem {index + 1}</p>
               </div>
             </div>
           ))}

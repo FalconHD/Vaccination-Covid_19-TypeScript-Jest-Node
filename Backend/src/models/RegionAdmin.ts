@@ -25,6 +25,15 @@ const schema = new Schema<IRegionAdmin>({
   phone: {
     type: String,
   },
+  region: {
+    type: String,
+  },
+  centers: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Center",
+    },
+  ],
 });
 
 schema.pre("save", function (next) {

@@ -15,7 +15,7 @@ export interface UserInfo {
   address: string;
   city: string;
   country: string;
-  vaccination: Vaccination[];
+  vaccinations: Vaccination[];
   center: string;
 }
 
@@ -39,7 +39,7 @@ const initialState: UserProps = {
     address: "",
     city: "",
     country: "",
-    vaccination: [
+    vaccinations: [
       {
         shot: "1",
         datetime: "",
@@ -67,7 +67,7 @@ export const UserSlice = createSlice({
         address,
         city,
         country,
-        vaccination,
+        vaccinations,
         center,
       } = payload;
       state.UserInfo = {
@@ -78,14 +78,32 @@ export const UserSlice = createSlice({
         address,
         city,
         country,
-        vaccination,
+        vaccinations,
         center,
       };
+    },
+    setIsSickStore: (state, { payload }: PayloadAction<boolean>) => {
+      state.VaccinationProcess.isSick = payload;
+    },
+    setShot: (state, { payload }: PayloadAction<string>) => {
+      state.VaccinationProcess.shot = payload;
+    },
+    setCinStore: (state, { payload }: PayloadAction<string>) => {
+      state.UserInfo.cin = payload;
+    },
+    setSickType: (state, { payload }: PayloadAction<string>) => {
+      state.VaccinationProcess.sickType = payload;
     },
   },
 });
 // Here we are just exporting the actions from this slice, so that we can call them anywhere in our app.
-export const { setUserInfo } = UserSlice.actions;
+export const {
+  setUserInfo,
+  setIsSickStore,
+  setShot,
+  setCinStore,
+  setSickType,
+} = UserSlice.actions;
 
 // exporting the reducer here, as we need to add this to the store
 export const UserReducer = UserSlice.reducer;

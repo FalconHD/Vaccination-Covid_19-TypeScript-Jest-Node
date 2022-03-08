@@ -1,2 +1,10 @@
 export { adminSlice, adminReducer, setAdmin } from "./admin.slice";
-export { UserReducer, UserSlice, setUserInfo } from "./user.slice";
+export {
+  UserReducer,
+  UserSlice,
+  setUserInfo,
+  setIsSickStore,
+  setShot,
+  setCinStore,
+  setSickType,
+} from "./user.slice";

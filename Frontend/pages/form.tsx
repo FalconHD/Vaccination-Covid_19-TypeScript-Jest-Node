@@ -1,10 +1,40 @@
 import { InfoUserForm } from "@/components";
+import { get } from "@/hooks";
 import type { NextPage } from "next";
 import Head from "next/head";
 import { InfoFormikProvider } from "providers";
+import { useEffect, useState } from "react";
 import styles from "../styles/Home.module.css";
 
 const From: NextPage = () => {
+  const [cities, setCities] = useState<Array<any>>([]);
+  const [region, setRegions] = useState<Array<any>>([]);
+
+  const [regionChoise, setRegionChoise] = useState<number>(1);
+
+  const getData = async () => {
+    getCities();
+    getRegions();
+  };
+
+  const getCities = async () => {
+    const cities = await get("/admin/cities/" + regionChoise);
+    setCities(cities);
+  };
+
+  const getRegions = async () => {
+    const regions = await get("/admin/regions");
+    setRegions(regions);
+  };
+
+  useEffect(() => {
+    getCities();
+  }, [regionChoise]);
+
+  useEffect(() => {
+    getData();
+  }, []);
+
   return (
     <div className="flex flex-col gap-5 mt-10 px-20 w-full border-opacity-50">
       <Head>
@@ -13,8 +43,12 @@ const From: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <section className="flex flex-col items-center gap-2">
-        <InfoFormikProvider>
-          <InfoUserForm />
+        <InfoFormikProvider cities={cities} regions={region}>
+          <InfoUserForm
+            regions={region}
+            cities={cities}
+            setRegionChoise={setRegionChoise}
+          />
         </InfoFormikProvider>
       </section>
     </div>

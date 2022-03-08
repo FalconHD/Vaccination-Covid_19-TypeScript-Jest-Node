@@ -1,5 +1,7 @@
+import { useAppDispatch } from "@/hooks";
+import { setIsSickStore } from "@/slices";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 export const Sick = ({
   image,
@@ -14,6 +16,7 @@ export const Sick = ({
   btn: string;
   to?: string;
 }) => {
+
   return (
     <div className="grid  flex-grow card bg-base-200 p-7 rounded-box place-items-center">
       <div className="card w-96 bg-base-100 shadow-xl">

@@ -1,9 +1,26 @@
 import { Login, Register } from "@/components";
+import { post, get } from "@/hooks";
+import { IRegions } from "@/interfaces";
 import type { NextPage } from "next";
 import Head from "next/head";
 import { LoginFormikProvider, RegisterFormikProvider } from "providers";
+import { useEffect, useState } from "react";
 
 const From: NextPage = () => {
+  const [regions, setRegions] = useState<IRegions[]>([
+    {
+      id: "",
+      region: "",
+    },
+  ]);
+  const getRegions = async () => {
+    const regions = await get("/admin/regions");
+    setRegions(regions);
+  };
+  useEffect(() => {
+    getRegions();
+  }, []);
+
   return (
     <>
       <Head>
@@ -13,7 +30,7 @@ const From: NextPage = () => {
       </Head>
       <section className="flex flex-col items-center gap-2">
         <RegisterFormikProvider>
-          <Register />
+          <Register regions={regions} />
         </RegisterFormikProvider>
       </section>
     </>

@@ -1,9 +1,9 @@
+import { IRegions } from "@/interfaces";
 import { useFormikContext } from "formik";
-import { LoginFormikValues } from "providers";
 import { RegisterFormikValues } from "providers";
 import React from "react";
 
-export const Register = () => {
+export const Register = ({ regions }: { regions: IRegions[] }) => {
   const {
     values,
     handleChange,
@@ -18,11 +18,9 @@ export const Register = () => {
     <div className="hero min-h-screen bg-base-200">
       <div className="flex-col hero-content lg:flex-row-reverse">
         <div className="text-center lg:text-left">
-          <h1 className="text-5xl font-bold">Login now!</h1>
+          <h1 className="text-5xl font-bold">Admin Registration </h1>
           <p className="py-6">
-            Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
-            excepturi exercitationem quasi. In deleniti eaque aut repudiandae et
-            a id nisi.
+            Admin registrtaion is required to access the admin panel.
           </p>
         </div>
         <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
@@ -78,6 +76,26 @@ export const Register = () => {
                 className="input input-bordered"
               />
               {errors.cin && <p className="text-red-500">{errors.cin}</p>}
+            </div>
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Region</span>
+              </label>
+              <select
+                className="select w-full max-w-xs input-bordered"
+                onChange={handleChange}
+                name="region"
+              >
+                <option disabled selected>
+                  Pick your region
+                </option>
+                {regions?.map((region: IRegions) => (
+                  <option key={region.id} value={region.id}>
+                    {region.region}
+                  </option>
+                ))}
+              </select>
+              {errors.region && <p className="text-red-500">{errors.region}</p>}
             </div>
             <div className="form-control">
               <label className="label">

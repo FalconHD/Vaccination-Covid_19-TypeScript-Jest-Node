@@ -1,7 +1,7 @@
 import { checkPassword } from "@lib";
-import { regionAdmin } from "@models/index";
 import { cute } from "@utils";
 import { Router } from "express";
+import { UserModel,regionAdmin } from "@models";
 
 const router = Router();
 
@@ -25,13 +25,6 @@ router.post(
   })
 );
 
-router.post(
-  "/register",
-  cute(async (req, res) => {
-    const admin = await regionAdmin.create(req.body);
-    res.json(admin);
-  })
-);
 
 // router.get('/',(req,res)=>{
 //   const

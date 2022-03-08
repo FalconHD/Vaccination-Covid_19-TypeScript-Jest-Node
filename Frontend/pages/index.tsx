@@ -1,4 +1,4 @@
-import { Card, Choises } from "@/components";
+import { Card, Choises, ClientAuth } from "@/components";
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
@@ -13,7 +13,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <section>
-        
+        <ClientAuth />
       </section>
     </div>
   );

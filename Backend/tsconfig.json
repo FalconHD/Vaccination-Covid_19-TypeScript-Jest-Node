@@ -16,7 +16,7 @@
       "@types/*": ["types/*"],
       "@routes": ["routes/index"],
       "@services/*": ["services/*"],
-      "@models/*": ["models/*"],
+      "@models": ["models/index"],
       "@controllers/*": ["controllers/*"],
       "@middlewares/*": ["middlewares/*"],
       "@interfaces": ["interfaces/index"],

@@ -26,6 +26,8 @@ interface IUser {
   phone: string;
   address: string;
   city: string;
+  region: string;
+  isSick: boolean;
   country?: string;
   vaccinations: Array<{
     shot: 1 | 2 | 3;
@@ -41,11 +43,14 @@ interface IRegionAdmin {
   region: string;
   cin: string;
   phone?: string;
+  centers: Array<typeof Schema.Types.ObjectId>;
 }
 
 interface ICenter {
   name: string;
   region: string;
+  users: Array<typeof Schema.Types.ObjectId>;
+  admins: Array<typeof Schema.Types.ObjectId>;
 }
 
 interface IUserTokenProps {

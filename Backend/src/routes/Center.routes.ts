@@ -1,4 +1,4 @@
-import { regionAdmin, CenterModel } from "@models/index";
+import { regionAdmin, CenterModel } from "@models";
 import { cute } from "@utils";
 import { Router } from "express";
 

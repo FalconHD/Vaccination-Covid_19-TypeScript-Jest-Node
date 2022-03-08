@@ -1,10 +1,13 @@
 import { NextPage } from "next";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { Sick } from "@/components";
+import { useAppDispatch } from "@/hooks";
+import { setIsSickStore } from "@/slices";
 
 const Asker: NextPage = () => {
   const router = useRouter();
+  const dispatch = useAppDispatch();
   const [isActive, setisActive] = useState(false);
 
   const { order } = router.query;
@@ -33,7 +36,7 @@ const Asker: NextPage = () => {
               />
               <div className="divider divider-horizontal">OR</div>
               <Sick
-                to="/form"
+                to={order == "1" ? "/form" : "/done"}
                 btn="Continue"
                 type="Continue"
                 title={`Complete the ${order} Vaccination process`}

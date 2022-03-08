@@ -1,7 +1,17 @@
 import React, { useEffect } from "react";
 import { InfoFormikValues } from "providers";
 import { useFormikContext } from "formik";
-export const InfoUserForm = () => {
+import { IRegions } from "@/interfaces";
+import { useAppSelector } from "@/hooks";
+export const InfoUserForm = ({
+  cities,
+  regions,
+  setRegionChoise,
+}: {
+  cities: Array<any>;
+  regions: Array<any>;
+  setRegionChoise: Function;
+}) => {
   const {
     values,
     handleChange,
@@ -10,11 +20,18 @@ export const InfoUserForm = () => {
     errors,
     submitCount,
     isSubmitting,
+    setFieldValue,
   } = useFormikContext<InfoFormikValues>();
 
+  const userData = useAppSelector((state) => state.user);
+
   useEffect(() => {
-    console.log(errors);
-  }, [errors]);
+    setRegionChoise(values.region);
+  }, [values.region]);
+
+  useEffect(() => {
+    setFieldValue("cin", userData.UserInfo.cin);
+  }, [userData.UserInfo.cin]);
 
   return (
     <>
@@ -56,6 +73,7 @@ export const InfoUserForm = () => {
             <input
               onChange={handleChange}
               value={values.cin}
+              disabled
               name="cin"
               type="text"
               placeholder="CIN"
@@ -64,16 +82,43 @@ export const InfoUserForm = () => {
           </div>
           <div className="form-control">
             <label className="label">
+              <span className="label-text">Region</span>
+            </label>
+            <select
+              className="select w-full max-w-xs input-bordered"
+              onChange={handleChange}
+              name="region"
+            >
+              <option disabled selected>
+                Pick your region
+              </option>
+              {regions?.map((region: IRegions) => (
+                <option key={region.id} value={region.id}>
+                  {region.region}
+                </option>
+              ))}
+            </select>
+            {errors.region && <p className="text-red-500">{errors.region}</p>}
+          </div>
+          <div className="form-control">
+            <label className="label">
               <span className="label-text">City</span>
             </label>
-            <input
+            <select
+              className="select w-full max-w-xs input-bordered"
               onChange={handleChange}
-              value={values.city}
               name="city"
-              type="text"
-              placeholder="City"
-              className="input input-bordered"
-            />
+            >
+              <option disabled selected>
+                Pick your region
+              </option>
+              {cities?.map((city: any) => (
+                <option key={city.id} value={city.id}>
+                  {city.ville}
+                </option>
+              ))}
+            </select>
+            {errors.region && <p className="text-red-500">{errors.region}</p>}
           </div>
           <div className="form-control">
             <label className="label">

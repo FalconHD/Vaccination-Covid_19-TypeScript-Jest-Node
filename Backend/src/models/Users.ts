@@ -26,6 +26,12 @@ const schema = new Schema<IUser>(
     country: {
       type: String,
     },
+    isSick: {
+      type: Boolean,
+    },
+    region: {
+      type: String,
+    },
     vaccinations: [
       {
         shot: {
