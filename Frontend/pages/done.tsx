@@ -1,7 +1,8 @@
+import React, { useEffect } from "react";
 import { post, useAppSelector } from "@/hooks";
 import moment from "moment";
 import { NextPage } from "next";
-import React, { useEffect } from "react";
+import Lottie from "react-lottie";
 
 const done: NextPage = () => {
   const user = useAppSelector((state) => state.user);
@@ -38,7 +39,22 @@ const done: NextPage = () => {
     }
   }, []);
 
-  return <div>done bro </div>;
+  return (
+    <div className="flex flex-col items-center bg-slate-500 justify-center h-screen">
+      <div className="shadow-lg rounded-lg bg-white flex flex-col items-center p-4">
+        <Lottie
+          options={{
+            animationData: require("../public/done.json"),
+          }}
+          height={400}
+          width={400}
+          loop={false}
+          autoplay
+        />
+        <span className="font-bold text-3xl">You are done!</span>
+      </div>
+    </div>
+  );
 };
 
 export default done;

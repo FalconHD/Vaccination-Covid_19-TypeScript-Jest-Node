@@ -25,7 +25,7 @@ export const ClientAuth = () => {
       } else {
         router.push(
           res.vaccinations.length < 3
-            ? `/vaccin/${res.vaccinations.length + 1}`
+            ? (`/vaccin/${res.vaccinations.length + 1}`)
             : "/"
         );
       }
