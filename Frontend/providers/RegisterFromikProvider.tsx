@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { ReactNode } from "react";
 import * as Yup from "yup";
 import { FormikProvider, useFormik } from "formik";
-import { post, useAppDispatch } from "@/hooks";
+import { get, post, useAppDispatch } from "@/hooks";
 import { setAdmin } from "@/slices";
 
 export type RegisterFormikValues = {
@@ -41,12 +41,16 @@ export const RegisterFormikProvider = ({
     },
     validationSchema,
     onSubmit: async (values) => {
-      const admin = await post("/admin/add", values);
+      const regions = await get("/admin/regions");
+      const region = regions.find((r: any) => r.id === values.region);
+      const admin = await post("/admin/add", {
+        ...values,
+        region: region.region,
+      });
       if (admin) {
         dispatch(setAdmin(admin.data));
         localStorage.setItem("admin", admin.token);
       }
-      console.log(admin);
     },
     validateOnChange: true,
     validateOnBlur: false,

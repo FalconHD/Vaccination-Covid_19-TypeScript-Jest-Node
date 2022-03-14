@@ -2,8 +2,10 @@ import React, { useEffect } from "react";
 import { ReactNode } from "react";
 import * as Yup from "yup";
 import { FormikProvider, useFormik } from "formik";
-import { post, useAppSelector } from "@/hooks";
+import { post, useAppDispatch, useAppSelector } from "@/hooks";
 import moment from "moment";
+import { setUserInfo } from "@/slices";
+import { useRouter } from "next/router";
 
 export type InfoFormikValues = {
   name: string;
@@ -12,6 +14,7 @@ export type InfoFormikValues = {
   address: string;
   cin: string;
   region: string;
+  center: string;
 };
 
 const validationSchema = () =>
@@ -22,6 +25,7 @@ const validationSchema = () =>
     address: Yup.string().required(),
     cin: Yup.string().required(),
     region: Yup.string().required(),
+    center: Yup.string().required(),
   });
 
 export const InfoFormikProvider = ({
@@ -34,7 +38,8 @@ export const InfoFormikProvider = ({
   regions: Array<any>;
 }) => {
   const user = useAppSelector((state) => state.user);
-
+  const dispatch = useAppDispatch();
+  const router = useRouter()
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -43,6 +48,7 @@ export const InfoFormikProvider = ({
       address: "",
       cin: "",
       region: "",
+      center: "",
     },
     validationSchema,
     onSubmit: async (values) => {
@@ -73,7 +79,10 @@ export const InfoFormikProvider = ({
         region: region.region,
         vaccinations: data,
       });
-      return result;
+      if (!result.error) {
+        dispatch(setUserInfo(result));
+        router.push('/wait')
+      }
     },
     validateOnChange: true,
     validateOnBlur: false,
