@@ -42,6 +42,7 @@ export const AddCenterFormikProvider = ({
       if (![404, 500].includes(res.status)) {
         const res = await get("/admin/" + admin.info.email);
         dispatch(setAdmin(res));
+        router.push("/dashboard");
       }
     },
     validateOnChange: true,

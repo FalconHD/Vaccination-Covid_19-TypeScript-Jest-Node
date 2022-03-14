@@ -5,6 +5,8 @@ import moment from "moment";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
+import Lottie from "react-lottie";
+
 
 export const ClientAuth = () => {
   const [cin, setCin] = useState<string>("");
@@ -39,13 +41,21 @@ export const ClientAuth = () => {
   return (
     <div className="w-full h-screen flex justify-center items-center "  style={{backgroundImage:"linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url(https://images.unsplash.com/photo-1592671963996-0b4616e9f042?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80)"}}>
       <div className="card w-96 bg-base-100 shadow-xl image-full">
+        <Lottie
+          options={{
+            animationData: require("../public/vaccinate.json"),
+          }}
+          height={400}
+          width={400}
+          autoplay
+        />
         <div className="card-body">
           <h2 className="card-title">
             <input
               onChange={(e) => setCin(e.target.value)}
               type="text"
               placeholder="Type here"
-              className="input w-full max-w-xs text-black"
+              className="input w-full max-w-xs text-black placeholder-black"
             />
           </h2>
           <p>Already registred Enter In CIN?</p>

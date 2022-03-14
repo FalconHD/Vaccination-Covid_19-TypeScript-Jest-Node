@@ -1,15 +1,29 @@
 import { AddCenterForm, CentersTable, Filtericon, Sidebar } from "@/components";
-import { useAppSelector } from "@/hooks";
+import { useAppSelector, get } from "@/hooks";
 import { NextPage } from "next";
 import Head from "next/head";
 import { AddCenterFormikProvider } from "providers";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "../../styles/Home.module.css";
 
 const centers: NextPage = () => {
   const [isAdding, setIsAdding] = useState(false);
   const { info } = useAppSelector((state) => state.admin);
   console.log(info);
+  const [centers, setCenters] = useState([]);
+
+  useEffect(() => {
+    const getCenters = async () => {
+      const allCenters = await get("/super/centers");
+      setCenters(allCenters);
+    };
+    getCenters();
+}, []);
+
+useEffect(() => {
+      console.log(centers);
+}, [centers]);
+
 
   return (
     <div className={styles.container} data-theme="fantasy">
@@ -19,7 +33,7 @@ const centers: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <section className="w-full h-screen flex font-poppins">
-        <Sidebar Super={false} />
+        <Sidebar Super />
         <div className="w-full flex flex-col justify-start items-center">
           <div className="w-full p-5 flex items-center justify-between my-8">
             <div>
@@ -78,7 +92,7 @@ const centers: NextPage = () => {
                 <AddCenterForm />
               </AddCenterFormikProvider>
             ) : (
-              <CentersTable  centers={info.centers} />
+              <CentersTable centers={centers} />
             )}
           </div>
         </div>

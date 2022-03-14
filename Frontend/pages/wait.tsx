@@ -19,6 +19,7 @@ const Wait: NextPage = () => {
           }}
           height={400}
           width={400}
+          // @ts-ignore
           loop={false}
           autoplay
         />
