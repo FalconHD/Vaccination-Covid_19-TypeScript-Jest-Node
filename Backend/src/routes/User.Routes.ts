@@ -1,4 +1,4 @@
-import { UserModel } from "@models";
+import { CenterModel, UserModel } from "@models";
 import { cute } from "@utils";
 import { Router } from "express";
 
@@ -33,6 +33,14 @@ router.post(
       cin: req.body.cin.toLowerCase(),
       city: req.body.city.toLowerCase(),
     });
+    if (user) {
+      await CenterModel.findByIdAndUpdate(user.center.toString(), {
+        $addToSet: { users: user._id },
+      });
+    } else {
+      throw new Error("problem while adding");
+    }
+    res.json(user);
     res.json(user);
   })
 );
