@@ -11,3 +11,5 @@ export { Statistics } from "./Statistics";
 export { SearchInput } from "./SearchInput";
 export { CircleBar } from "./CircleBar";
 export { ClientAuth } from "./ClientAuth";
+export { CentersTable } from "./CentersTable";
+export { AddCenterForm } from "./addCenterForm";

@@ -1,14 +1,19 @@
 import { checkPassword } from "@lib";
 import { cute } from "@utils";
 import { Router } from "express";
-import { UserModel,regionAdmin } from "@models";
+import { UserModel, regionAdmin } from "@models";
 
 const router = Router();
 
 router.post(
   "/login",
   cute(async (req, res) => {
-    const admin = await regionAdmin.findOne({ email: req.body.email });
+    const admin = await regionAdmin
+      .findOne({ email: req.body.email })
+      .populate({
+        path: "centers",
+      });
+    console.log(admin);
     if (admin) {
       if (await checkPassword(req.body.password, admin.password)) {
         res.json(admin);
@@ -24,7 +29,6 @@ router.post(
     }
   })
 );
-
 
 // router.get('/',(req,res)=>{
 //   const

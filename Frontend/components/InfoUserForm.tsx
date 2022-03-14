@@ -6,11 +6,15 @@ import { useAppSelector } from "@/hooks";
 export const InfoUserForm = ({
   cities,
   regions,
+  centers,
   setRegionChoise,
+  setCityChoice,
 }: {
   cities: Array<any>;
   regions: Array<any>;
+  centers: Array<any>;
   setRegionChoise: Function;
+  setCityChoice: Function;
 }) => {
   const {
     values,
@@ -28,6 +32,16 @@ export const InfoUserForm = ({
   useEffect(() => {
     setRegionChoise(values.region);
   }, [values.region]);
+
+  useEffect(() => {
+    console.log(centers);
+
+    setCityChoice(values.city);
+  }, [values.city]);
+
+  useEffect(() => {
+    console.log(values);
+  }, [values.center]);
 
   useEffect(() => {
     setFieldValue("cin", userData.UserInfo.cin);
@@ -119,6 +133,26 @@ export const InfoUserForm = ({
               ))}
             </select>
             {errors.region && <p className="text-red-500">{errors.region}</p>}
+          </div>
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text">Center</span>
+            </label>
+            <select
+              className="select w-full max-w-xs input-bordered"
+              onChange={handleChange}
+              name="center"
+            >
+              <option disabled selected>
+                Pick your region
+              </option>
+              {centers?.map((center: any) => (
+                <option key={center.id} value={center._id}>
+                  {center.name}
+                </option>
+              ))}
+            </select>
+            {errors.center && <p className="text-red-500">{errors.center}</p>}
           </div>
           <div className="form-control">
             <label className="label">

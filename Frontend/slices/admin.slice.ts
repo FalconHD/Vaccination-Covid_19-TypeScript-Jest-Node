@@ -2,11 +2,22 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "@/store";
 
 // declaring the types for our state
+type ICenter = {
+  id: string;
+  createdAt: string;
+  name: string;
+  region: string;
+  users: string[];
+  admins: string[];
+};
+
 type adminInfo = {
   cin: string;
   email: string;
   name: string;
   phone: string;
+  region: string;
+  centers: ICenter[];
   _id: string;
 };
 
@@ -21,6 +32,8 @@ const initialState: adminProps = {
     email: "",
     name: "",
     phone: "",
+    region: "",
+    centers: [],
     _id: "",
   },
   isLoggedIn: false,
@@ -31,9 +44,9 @@ export const adminSlice = createSlice({
   initialState,
   reducers: {
     setAdmin: (state, { payload }: PayloadAction<adminInfo>) => {
-      const { cin, email, name, phone, _id } = payload;
+      const { cin, email, name, phone, _id, region, centers } = payload;
       state.isLoggedIn = true;
-      state.info = { cin, email, name, phone, _id };
+      state.info = { cin, email, name, phone, _id, region, centers };
     },
   },
 });

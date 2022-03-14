@@ -45,10 +45,16 @@ interface IRegionAdmin {
   phone?: string;
   centers: Array<typeof Schema.Types.ObjectId>;
 }
+interface ISuper {
+  name: string;
+  email: string;
+  password: string;
+}
 
 interface ICenter {
   name: string;
   region: string;
+  city: string;
   users: Array<typeof Schema.Types.ObjectId>;
   admins: Array<typeof Schema.Types.ObjectId>;
 }
@@ -59,4 +65,11 @@ interface IUserTokenProps {
   _id: string;
 }
 
-export type { RequestFunc, IUser, IRegionAdmin, ICenter, IUserTokenProps };
+export type {
+  RequestFunc,
+  ISuper,
+  IUser,
+  IRegionAdmin,
+  ICenter,
+  IUserTokenProps,
+};

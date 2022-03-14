@@ -1,3 +1,5 @@
+import { useAppSelector } from "@/hooks";
+import Link from "next/link";
 import react from "react";
 import {
   Billingicon,
@@ -16,21 +18,24 @@ interface MenuItemProps {
   title: string;
   icon: JSX.Element;
   active?: boolean;
+  to: string;
 }
 
 function Menu({ children }: MenuProps) {
   return <div className="flex flex-col space-y-3">{children}</div>;
 }
 
-function MenuItem({ title, icon, active = false }: MenuItemProps) {
+function MenuItem({ title, icon, active = false, to }: MenuItemProps) {
   const styles =
     "flex space-x-4 px-6 py-3 cursor-pointer text-black hover:bg-gray-100 transition-all";
   const activeStyles = "menu_item_border";
   return (
-    <div className={`${styles} ${active && activeStyles}`}>
-      {icon}
-      <span>{title}</span>
-    </div>
+    <Link href={to}>
+      <div className={`${styles} ${active && activeStyles}`}>
+        {icon}
+        <span>{title}</span>
+      </div>
+    </Link>
   );
 }
 
@@ -48,6 +53,8 @@ function Avatar() {
 }
 
 export const Sidebar = () => {
+  const { info } = useAppSelector((state) => state.admin);
+
   return (
     <div className="w-[250px] h-full flex flex-col border-r-2 border-r-gray-200 py-4">
       <div className="mb-8">
@@ -56,17 +63,19 @@ export const Sidebar = () => {
         </button>
       </div>
       <Menu>
-        <MenuItem title="Home" icon={<Homeicon />} active />
-        <MenuItem title="Centers" icon={<Projecticon />} />
-        {/* <MenuItem title="Billings" icon={<Billingicon />} />
-        <MenuItem title="Team Members" icon={<Usericon />} />
-        <MenuItem title="Stats" icon={<Statsicon />} />
-        <MenuItem title="Settings" icon={<Settingicon />} /> */}
+        <MenuItem to="/dashboard" title="Home" icon={<Homeicon />} active />
+        <MenuItem
+          to="/dashboard/centers"
+          title="Centers"
+          icon={<Projecticon />}
+        />
       </Menu>
       <div className="flex-1"></div>
       <div className="text-center my-4 flex flex-col items-center">
         <Avatar />
-        <p className="font-semibold mt-2">David Milan</p>
+        <p className="font-semibold mt-2">
+          {info.name ? info.name : "David Milan"}{" "}
+        </p>
       </div>
     </div>
   );

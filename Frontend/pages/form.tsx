@@ -9,8 +9,10 @@ import styles from "../styles/Home.module.css";
 const From: NextPage = () => {
   const [cities, setCities] = useState<Array<any>>([]);
   const [region, setRegions] = useState<Array<any>>([]);
+  const [centers, setCenters] = useState<Array<any>>([]);
 
   const [regionChoise, setRegionChoise] = useState<number>(1);
+  const [cityChoice, setCityChoice] = useState<string>("");
 
   const getData = async () => {
     getCities();
@@ -27,9 +29,21 @@ const From: NextPage = () => {
     setRegions(regions);
   };
 
+  const getCenters = async (city: string) => {
+    const target = cities.find((elm) => elm.id === city);
+    const centers = target
+      ? await get("/admin/centers/" + target.ville)
+      : await get("/admin/centers/");
+    setCenters(centers);
+  };
+
   useEffect(() => {
     getCities();
   }, [regionChoise]);
+
+  useEffect(() => {
+    getCenters(cityChoice);
+  }, [cityChoice]);
 
   useEffect(() => {
     getData();
@@ -45,8 +59,10 @@ const From: NextPage = () => {
       <section className="flex flex-col items-center gap-2">
         <InfoFormikProvider cities={cities} regions={region}>
           <InfoUserForm
+            setCityChoice={setCityChoice}
             regions={region}
             cities={cities}
+            centers={centers}
             setRegionChoise={setRegionChoise}
           />
         </InfoFormikProvider>
