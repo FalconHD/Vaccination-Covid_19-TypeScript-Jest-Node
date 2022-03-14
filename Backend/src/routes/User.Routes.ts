@@ -1,4 +1,4 @@
-import { UserModel } from "@models";
+import { CenterModel, UserModel } from "@models";
 import { cute } from "@utils";
 import { Router } from "express";
 
@@ -26,13 +26,19 @@ router.get(
 router.post(
   "/register",
   cute(async (req, res) => {
-    console.log(req.body);
     const user = await UserModel.create({
       ...req.body,
       region: req.body.region.toLowerCase(),
       cin: req.body.cin.toLowerCase(),
       city: req.body.city.toLowerCase(),
     });
+    if (user) {
+      await CenterModel.findByIdAndUpdate(user.center.toString(), {
+        $addToSet: { users: user._id },
+      });
+    } else {
+      throw new Error("problem while adding");
+    }
     res.json(user);
   })
 );
