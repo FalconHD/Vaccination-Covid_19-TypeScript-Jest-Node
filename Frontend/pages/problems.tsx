@@ -31,7 +31,7 @@ const Prob: NextPage = () => {
         {Array(10)
           .fill(0)
           .map((_, index) => (
-            <div className="card w-full bg-base-100 shadow-xl">
+            <div key={index} className="card w-full bg-base-100 shadow-xl">
               <div className="card-body flex items-center justify-between flex-row-reverse ">
                 <div className="justify-end card-actions">
                   <button
@@ -50,9 +50,9 @@ const Prob: NextPage = () => {
                       viewBox="0 0 24 24"
                       fill="none"
                       stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                       className="feather feather-check-circle h-6 w-6"
                     >
                       <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>

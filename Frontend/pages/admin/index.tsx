@@ -17,17 +17,17 @@ import {
 
 const Home: NextPage = () => {
   const router = useRouter();
+  const [numCenters , setNumCenters] = useState(0);
 
   const admin = useAppSelector((state) => state.admin);
   const [users, setUsers] = useState<Array<any>>();
   const [vaccinated, setVaccinated] = useState();
   const [notVaccinated, setNotVaccinated] = useState();
-
-  useEffect(() => {
-    if (!admin.isLoggedIn) {
-      router.push("/auth/login");
-    }
-  }, [admin]);
+  // useEffect(() => {
+  //   if (!admin.isLoggedIn) {
+  //     router.push("/auth/login");
+  //   }
+  // }, [admin]);
 
   useEffect(() => {
     const users = async () => {
@@ -41,7 +41,16 @@ const Home: NextPage = () => {
     users();
   }, []);
 
-  if (!admin.isLoggedIn) return <div>checking your acceccebility... </div>;
+  useEffect(() => {
+    const centers = async () => {
+      const allCenters = await get("/super/centers");
+      setNumCenters(allCenters.length);
+      console.log(allCenters);
+    };
+    centers();
+  }, []);
+
+  if (admin.isLoggedIn) return <div>checking your acceccebility... </div>;
   else
     return (
       <div className={styles.container} data-theme="fantasy">
@@ -51,7 +60,7 @@ const Home: NextPage = () => {
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <section className="w-full h-screen flex font-poppins">
-          <Sidebar Super={false} />
+          <Sidebar Super />
           <div className="flex-1 overflow-y-scroll p-8 grid grid-cols-12 gap-6">
             <div className="col-span-12">
               <div className="col-span-2 bg-blue-100 p-8 rounded-3xl grid grid-cols-3 w-full">
@@ -79,7 +88,7 @@ const Home: NextPage = () => {
                   </div>
                   <p className="text-[#8c8c8b] text-sm font-light">Centers</p>
                   <p className="text-black font-bold text-xl">
-                    {admin.info.centers?.length}
+                    {numCenters}
                   </p>
                 </div>
               </div>

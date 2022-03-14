@@ -2,6 +2,8 @@ import { IRegions } from "@/interfaces";
 import { useFormikContext } from "formik";
 import { RegisterFormikValues } from "providers";
 import React from "react";
+import Lottie from "react-lottie";
+
 
 export const Register = ({ regions }: { regions: IRegions[] }) => {
   const {
@@ -22,6 +24,15 @@ export const Register = ({ regions }: { regions: IRegions[] }) => {
           <p className="py-6">
             Admin registrtaion is required to access the admin panel.
           </p>
+          <Lottie
+          options={{
+            animationData: require("../../public/admin.json"),
+          }}
+          height={400}
+          width={400}
+          loop={false}
+          autoplay
+        />
         </div>
         <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
           <div className="card-body">
@@ -111,11 +122,7 @@ export const Register = ({ regions }: { regions: IRegions[] }) => {
               {errors.password && (
                 <p className="text-red-500">{errors.password}</p>
               )}
-              <label className="label">
-                <a href="#" className="label-text-alt link link-hover">
-                  Forgot password?
-                </a>
-              </label>
+              
             </div>
             <div className="form-control mt-6">
               <button

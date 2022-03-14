@@ -3,45 +3,34 @@ import { ReactNode } from "react";
 import * as Yup from "yup";
 import { FormikProvider, useFormik } from "formik";
 import { get, post, useAppDispatch, useAppSelector } from "@/hooks";
-import { setAdmin } from "@/slices";
+import {  setUserInfo } from "@/slices";
 import { useRouter } from "next/router";
 
-export type addCenterFormikValues = {
-  name: string;
-  region: string;
-  city: string;
-  admins: string[];
+export type SuperFormikValues = {
+  email: string;
+  password: string;
 };
 
 const validationSchema = () =>
   Yup.object({
-    name: Yup.string().required(),
-    region: Yup.string().required(),
-    city: Yup.string().required(),
-    admins: Yup.array().required(),
+    email: Yup.string().required(),
+    password: Yup.string().required(),
   });
 
-export const AddCenterFormikProvider = ({
-  children,
-}: {
-  children: ReactNode;
-}) => {
+export const SuperFormikProvider = ({ children }: { children: ReactNode }) => {
   const dispatch = useAppDispatch();
-  const admin = useAppSelector((state) => state.admin);
   const router = useRouter();
   const formik = useFormik({
     initialValues: {
-      name: "",
-      region: "",
-      city: "",
-      admins: [],
+      email: "",
+      password: "",
     },
     validationSchema,
-    onSubmit: async (values) => {
-      const res = await post("/center/add", values);
+    onSubmit: async ({ email, password }) => {
+      const res = await post("/super/login", { email, password });
       if (![404, 500].includes(res.status)) {
-        const res = await get("/admin/" + admin.info.email);
-        dispatch(setAdmin(res));
+        const res = await get("/admin/" + email);
+        dispatch(setUserInfo(res));
         router.push("/dashboard");
       }
     },

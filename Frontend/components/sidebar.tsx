@@ -1,6 +1,6 @@
 import { useAppSelector } from "@/hooks";
 import Link from "next/link";
-import react from "react";
+import react , { FC } from "react";
 import {
   Billingicon,
   Gridicon,
@@ -52,7 +52,11 @@ function Avatar() {
   );
 }
 
-export const Sidebar = () => {
+type superProps = {
+  Super: boolean;
+};
+
+export const Sidebar = ({Super}:superProps) => {
   const { info } = useAppSelector((state) => state.admin);
 
   return (
@@ -63,9 +67,12 @@ export const Sidebar = () => {
         </button>
       </div>
       <Menu>
-        <MenuItem to="/dashboard" title="Home" icon={<Homeicon />} active />
+        <MenuItem 
+        
+        to={`${Super ? "/admin" : "/dashboard"}`}
+        title="Home" icon={<Homeicon />} active />
         <MenuItem
-          to="/dashboard/centers"
+          to={`${Super ? "/admin/centers" : "/dashboard/centers"}`}
           title="Centers"
           icon={<Projecticon />}
         />
