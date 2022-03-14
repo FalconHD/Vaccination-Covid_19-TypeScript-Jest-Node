@@ -5,7 +5,19 @@ import { Router } from "express";
 const router = Router();
 
 router.post("/add", async (req, res) => {
-  const center = await CenterModel.create(req.body);
+  const center = await CenterModel.create({
+    ...req.body,
+    region: req.body.region.toLowerCase(),
+    city: req.body.city.toLowerCase(),
+  });
+  await Promise.all(
+    center.admins.map(
+      async (admin) =>
+        await regionAdmin.findByIdAndUpdate(admin, {
+          $addToSet: { centers: center._id },
+        })
+    )
+  );
   res.status(201).json({
     center,
   });

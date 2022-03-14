@@ -11,6 +11,10 @@ const schema = new Schema<ICenter>(
       type: String,
       required: true,
     },
+    city: {
+      type: String,
+      required: true,
+    },
     users: [
       {
         type: Schema.Types.ObjectId,

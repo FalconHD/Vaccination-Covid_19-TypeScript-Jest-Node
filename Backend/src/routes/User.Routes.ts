@@ -5,15 +5,24 @@ import { Router } from "express";
 const router = Router();
 
 router.get(
+  "/",
+  cute(async (req, res) => {
+    const users = await UserModel.find({});
+    res.json(users);
+  })
+);
+
+router.get(
   "/checkCin/:cin",
   cute(async (req, res) => {
     const { cin } = req.params;
-    const User = await UserModel.findOne({ cin : cin.toLowerCase() });
+    const User = await UserModel.findOne({ cin: cin.toLowerCase() });
     if (!User) throw new Error("User not found");
 
     res.json(User);
   })
 );
+
 router.post(
   "/register",
   cute(async (req, res) => {
