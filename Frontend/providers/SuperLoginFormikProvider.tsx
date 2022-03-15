@@ -3,7 +3,7 @@ import { ReactNode } from "react";
 import * as Yup from "yup";
 import { FormikProvider, useFormik } from "formik";
 import { get, post, useAppDispatch, useAppSelector } from "@/hooks";
-import {  setUserInfo } from "@/slices";
+import { setSuper, setUserInfo } from "@/slices";
 import { useRouter } from "next/router";
 
 export type SuperFormikValues = {
@@ -28,10 +28,9 @@ export const SuperFormikProvider = ({ children }: { children: ReactNode }) => {
     validationSchema,
     onSubmit: async ({ email, password }) => {
       const res = await post("/super/login", { email, password });
-      if (![404, 500].includes(res.status)) {
-        const res = await get("/admin/" + email);
-        dispatch(setUserInfo(res));
-        router.push("/dashboard");
+      if (![404, 500].includes(res.status) && !res.error) {
+        dispatch(setSuper(res));
+        router.push("/admin");
       }
     },
     validateOnChange: true,
