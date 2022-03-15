@@ -121,7 +121,7 @@ const Home: NextPage = () => {
                     <p className="text-[#8c8c8b] text-sm mb-3">
                       at more 1 shot
                     </p>
-                    <p className="font-bold text-black text-3xl mb-1">400</p>
+                    <p className="font-bold text-black text-3xl mb-1">0</p>
                   </div>
                   <div>
                     <CircleBar
